@@ -10,10 +10,12 @@ public class Request {
     Hashtable<String, Header> headers = new Hashtable<>();
     String protocol;
     String body;
+    boolean isNull = false;
 
     ArrayList<String> rawRequest;
     public Request(ArrayList<String> requestLines) {
         rawRequest = requestLines;
+        if (requestLines.isEmpty()) isNull = true;
         parseRequest();
     }
 
