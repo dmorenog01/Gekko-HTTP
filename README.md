@@ -21,7 +21,7 @@ public class Main {
             GekkoServer server = new GekkoServer();
             server.addHandler("/favicon.ico", acceptedMethods, new FaviconHandler());
             server.addHandler("/", acceptedMethods, new indexHandler());
-            server.addHandler("/", acceptedMethods, new homeHandler());
+            server.addHandler("/home", acceptedMethods, new homeHandler());
             server.runServer();
         } catch (IOException e) {
             throw new RuntimeException(e);
