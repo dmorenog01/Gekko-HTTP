@@ -4,8 +4,8 @@ Gekko is a simple http server that can listen for requests on a specific port, p
 
 ## Features
 - Parse HTTP Request in to a convenient Request object with easily accessible headers, request path, and method.
-- Return response objects with JSON, http, javascript or css files.
-- Configure request handlers for specific paths / methods
+- Return response objects with different file formats.
+- Configure request handlers for specific paths / methods.
 
 ## Minimal Example
 ```java
