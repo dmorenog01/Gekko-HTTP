@@ -1,8 +1,6 @@
 import Gekko.*;
 import Gekko.defaultHandlers.FaviconHandler;
 
-import java.io.IOException;
-
 class indexHandler implements Handler {
     @Override
     public BaseResponse getResponse(Request request, BaseResponse response) {
@@ -19,15 +17,19 @@ class homeHandler implements Handler {
     }
 }
 
-public class Main {
-    public static void main(String[] args) throws IOException {
+public class Example {
+    public static void main(String[] args) {
         try {
             GekkoServer server = new GekkoServer();
+
             String[] methods = {"GET"};
-            server.addHandler("/", methods, new indexHandler(), true);
-            server.addHandler("/home", methods, new homeHandler(), true);
-            server.addHandler("/favicon.ico", methods, new FaviconHandler(), true);
+
+            server.addHandler("/", methods, new indexHandler());
+            server.addHandler("/home", methods, new homeHandler());
+            server.addHandler("/favicon.ico", methods, new FaviconHandler());
+
             server.runServer();
+
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
             System.exit(1);
