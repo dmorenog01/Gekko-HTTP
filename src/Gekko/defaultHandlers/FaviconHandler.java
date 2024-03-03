@@ -2,29 +2,24 @@ package Gekko.defaultHandlers;
 
 import Gekko.*;
 
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.io.InputStream;
+
 
 public class FaviconHandler implements Handler {
-    File imgFile = null;
+
     byte[] imgBytes = null;
 
 
-    public FaviconHandler() {
-        String path = System.getProperty("user.dir") + "\\src\\Gekko\\images\\favicon.ico";
-        imgFile = new File(path);
-        if (!imgFile.exists()) {
-            System.err.println("ERROR LOADING FILE");
+    public FaviconHandler() throws IOException {
 
-        }
-        try {
-            imgBytes = Files.readAllBytes(imgFile.toPath());
-        } catch (IOException e) {
-            System.err.println("ERROR: " + e);
+        try (InputStream stream = getClass().getResourceAsStream("/Gekko/internalAssets/favicon.ico")) {
+            if (stream != null) {
+                imgBytes = stream.readAllBytes();
+            } else {
+            System.err.println("ERROR LOADING FILE");
             System.exit(1);
-        }
+        }}
     }
 
     @Override
