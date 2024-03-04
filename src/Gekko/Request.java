@@ -9,7 +9,7 @@ public class Request {
     String path;
     Hashtable<String, Header> headers = new Hashtable<>();
     String protocol;
-    String body;
+    String body = "";
     boolean isNull = false;
 
     ArrayList<String> rawRequest;
@@ -46,6 +46,10 @@ public class Request {
             builder.append("%s\n".formatted(headers.get(key).toString()));
         }
         builder.append("\n");
+        if (!this.body.isEmpty()) {
+            builder.append(this.body);
+            builder.append("\n");
+        }
         return builder.toString();
     }
 }

@@ -5,7 +5,6 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-
 public class GekkoServer {
     ServerSocket socket;
     int port = 8080;
@@ -28,24 +27,20 @@ public class GekkoServer {
         System.out.println("Waiting for connections...");
 
         while (this.running) {
+            // Services Request and closes connection to client
             Socket client = socket.accept();
             Request request;
-
-            while (true) {
-               request = getRequest(client);
-               if (request.isNull) break;
-               serviceRequest(client, request);
-            }
-
+            request = getRequest(client);
+            serviceRequest(client, request);
             client.close();
-
         }
         socket.close();
     }
 
     public void addHandler(String path, String[] methods, Handler handler) {
-            addHandler(path, methods, handler, false);
+        addHandler(path, methods, handler, false);
     }
+
     public void addHandler(String path, String[] methods, Handler handler, boolean show) {
         Hashtable<String, Handler> handlerTable = new Hashtable<>();
         for (String method : methods) {
@@ -60,14 +55,14 @@ public class GekkoServer {
         System.out.println("REQUEST:\n" + request);
 
         BaseResponse response = getResponse(request);
-        System.out.println("RESPONSE:\n" + response);
+//        System.out.println("RESPONSE:\n" + response);
 
         sendResponse(client, response);
     }
 
     private BaseResponse getResponse(Request request) {
         Handler handler = null;
-        System.out.printf("Searching handler for %s %s\n", request.path, request.verb);
+//        System.out.printf("Searching handler for %s %s\n", request.path, request.verb);
         try {
             Hashtable<String, Handler> pathHandler = this.handlers.get(request.path);
             if (pathHandler == null) return new ServerErrorResponse();
@@ -82,7 +77,7 @@ public class GekkoServer {
             System.exit(1);
         }
         BaseResponse emptyResponse = new BaseResponse();
-        System.out.printf("Handling %s %s\n", request.path, request.verb);
+//        System.out.printf("Handling %s %s\n", request.path, request.verb);
         return handler.getResponse(request, emptyResponse);
     }
 
@@ -92,13 +87,33 @@ public class GekkoServer {
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
 
-        while (reader.ready()) {
-            String line = reader.readLine();
-            if (line.isEmpty()) continue;
+        // Read head
+        String line = reader.readLine();
+        while (line != null && !line.isBlank()) {
             requestLines.add(line);
+            line = reader.readLine();
+        }
+        Request request = new Request(requestLines);
+
+        Header contentLengthHeader = request.headers.get("Content-Length");
+
+        if (contentLengthHeader == null) return request;
+
+        int contentLength = Integer.parseInt(contentLengthHeader.value);
+
+        if (contentLength == 0) return request;
+
+        // Read Body char by char
+        CharArrayWriter wr = new CharArrayWriter();
+        while (reader.ready() && wr.size() != contentLength) {
+            int byte_ = reader.read();
+            byte bt = (byte)byte_;
+            wr.append((char) bt);
         }
 
-        return new Request(requestLines);
+        request.body = wr.toString();
+
+        return request;
     }
 
     private void sendResponse(Socket client, BaseResponse response) throws IOException {

@@ -11,7 +11,7 @@ public class BaseResponse {
     private String body;
 
     public BaseResponse() {
-        this.protocol = "HTTP/1.1";
+        this.protocol = "HTTP/1.0";
         this.code = 200;
         this.message = "OK";
         addHeader(new Header("Server", "Gekko"));
