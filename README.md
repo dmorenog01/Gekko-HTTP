@@ -6,7 +6,6 @@ Gekko is an educational Java library designed to streamline the creation and man
 
 ## Key Features:
 
-- Effortless Setup: Leverage Java's server sockets to bind your server to a port and start receiving requests with minimal code.
 - Automatic Request Parsing: Gekko automatically parses incoming requests, extracting essential information like method, path, headers, and body into a convenient Request object.
 - Request Handling: Define request handlers using a simple interface with a getResponse method that takes the Request object and returns a corresponding Response object.
 - Flexible Response Options: Easily build responses with text, JSON, or raw bytes through dedicated methods like setBody, setHTMLbody, and setJSONBody. These methods automatically set appropriate content-type headers.
