@@ -1,6 +1,9 @@
-package Gekko.defaultHandlers;
+package Gekko.DefaultHandlers;
 
 import Gekko.*;
+import Gekko.Interfaces.Handler;
+import Gekko.Responses.BaseResponse;
+import Gekko.Responses.BytesResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +16,7 @@ public class FaviconHandler implements Handler {
 
     public FaviconHandler() throws IOException {
 
-        try (InputStream stream = getClass().getResourceAsStream("/Gekko/internalAssets/favicon.ico")) {
+        try (InputStream stream = getClass().getResourceAsStream("/Gekko/InternalAssets/favicon.ico")) {
             if (stream != null) {
                 imgBytes = stream.readAllBytes();
             } else {

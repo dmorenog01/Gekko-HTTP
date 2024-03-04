@@ -1,4 +1,4 @@
-package Gekko;
+package Gekko.Responses;
 
 public class ServerErrorResponse extends BaseResponse {
     public ServerErrorResponse() {

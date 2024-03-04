@@ -1,8 +1,8 @@
 package Gekko;
 
 public class Header {
-    String key;
-    String value;
+    public String key;
+    public String value;
     public Header(String k, String v) {
         key = k;
         value = v;

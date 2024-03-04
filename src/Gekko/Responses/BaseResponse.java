@@ -1,4 +1,6 @@
-package Gekko;
+package Gekko.Responses;
+
+import Gekko.Header;
 
 import java.util.Hashtable;
 import java.util.Set;

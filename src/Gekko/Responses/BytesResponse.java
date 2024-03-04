@@ -1,4 +1,6 @@
-package Gekko;
+package Gekko.Responses;
+
+import Gekko.Header;
 
 public class BytesResponse extends BaseResponse {
     byte[] bytesBody;

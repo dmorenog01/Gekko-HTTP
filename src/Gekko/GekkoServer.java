@@ -1,5 +1,10 @@
 package Gekko;
 
+import Gekko.Constants.Methods;
+import Gekko.Interfaces.Handler;
+import Gekko.Responses.BaseResponse;
+import Gekko.Responses.ServerErrorResponse;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -48,6 +53,9 @@ public class GekkoServer {
         }
         this.handlers.put(path, handlerTable);
         if (show) System.out.printf("Registered %s\n", path);
+    }
+    public void addGET(String path, Handler handler) {
+        addHandler(path, Methods.GET, handler);
     }
 
     private void serviceRequest(Socket client, Request request) throws IOException {
