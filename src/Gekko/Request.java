@@ -26,6 +26,11 @@ public class Request {
             line = this.rawRequest.get(i);
             if (i == 0) {
                 splitline = line.split(" ");
+                if (splitline.length != 3) {
+                    // Malformed request
+                    this.isNull = true;
+                    return;
+                }
                 this.verb = splitline[0];
                 this.path = splitline[1];
                 this.protocol = splitline[2];

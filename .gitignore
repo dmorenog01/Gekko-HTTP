@@ -1,3 +1,6 @@
+### Custom ###
+/src/Example.java
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
