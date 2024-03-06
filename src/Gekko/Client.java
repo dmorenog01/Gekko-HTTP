@@ -25,14 +25,14 @@ public class Client implements Runnable{
     }
     @Override
     public void run() {
-        try (Socket socket = clientSocket) {
-            serviceRequest();
-        } catch (SocketTimeoutException e) {
-            System.err.println("Socket Timed out. Closing...");
-        }
-        catch (IOException e) {
-            System.err.println("ERROR closing socket: " + e.getMessage());
-        }
+            try (Socket socket = clientSocket) {
+                serviceRequest();
+            } catch (SocketTimeoutException e) {
+                System.err.println("Socket Timed out. Closing...");
+            }
+            catch (IOException e) {
+                System.err.println("ERROR closing socket: " + e.getMessage());
+            }
     }
 
     private void serviceRequest() throws SocketTimeoutException {

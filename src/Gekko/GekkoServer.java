@@ -46,7 +46,7 @@ public class GekkoServer {
             // Services Request
             try {
                 Socket client = socket.accept();
-                client.setSoTimeout(5000);
+                client.setSoTimeout(2000);
                 Thread clientThread = new Thread( new Client(client, handlers));
                 clientThread.start();
             } catch (Exception e) {
