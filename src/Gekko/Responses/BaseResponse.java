@@ -38,6 +38,7 @@ public class BaseResponse {
         setBody(body);
         addHeader(new Header("Content-Type", "text/html"));
     }
+
     public void setJSONBody(String body) {
         setBody(body);
         addHeader(new Header("Content-Type", "application/json"));
@@ -57,7 +58,8 @@ public class BaseResponse {
         }
         return builder.toString();
     }
-    public byte[] sendable () {
+
+    public byte[] sendable() {
         return this.toString().getBytes();
     }
 }

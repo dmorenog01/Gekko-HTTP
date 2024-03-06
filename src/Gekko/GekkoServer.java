@@ -50,7 +50,7 @@ public class GekkoServer {
             try {
                 Socket client = socket.accept();
                 client.setSoTimeout(defaultClientTimeout);
-                Thread clientThread = new Thread( new Client(client, handlers));
+                Thread clientThread = new Thread(new Client(client, handlers));
                 clientThread.start();
             } catch (Exception e) {
                 System.err.println("ERROR: " + e.getMessage());

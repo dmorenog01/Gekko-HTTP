@@ -13,6 +13,7 @@ public class Request {
     boolean isNull = false;
 
     ArrayList<String> rawRequest;
+
     public Request(ArrayList<String> requestLines) {
         rawRequest = requestLines;
         if (requestLines.isEmpty()) isNull = true;

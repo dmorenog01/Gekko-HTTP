@@ -10,12 +10,13 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public class Client implements Runnable{
+public class Client implements Runnable {
     Socket clientSocket;
     boolean debug;
     Hashtable<String, Hashtable<String, Handler>> handlers;
+
     public Client(Socket clientSocket, Hashtable<String, Hashtable<String, Handler>> handlers) {
-            this(clientSocket, handlers, false);
+        this(clientSocket, handlers, false);
     }
 
     public Client(Socket clientSocket, Hashtable<String, Hashtable<String, Handler>> handlers, boolean debug) {
@@ -23,16 +24,16 @@ public class Client implements Runnable{
         this.handlers = handlers;
         this.debug = debug;
     }
+
     @Override
     public void run() {
-            try (Socket socket = clientSocket) {
-                serviceRequest();
-            } catch (SocketTimeoutException e) {
-                System.err.println("Socket Timed out. Closing...");
-            }
-            catch (IOException e) {
-                System.err.println("ERROR closing socket: " + e.getMessage());
-            }
+        try (Socket socket = clientSocket) {
+            serviceRequest();
+        } catch (SocketTimeoutException e) {
+            System.err.println("Socket Timed out. Closing...");
+        } catch (IOException e) {
+            System.err.println("ERROR closing socket: " + e.getMessage());
+        }
     }
 
     private void serviceRequest() throws SocketTimeoutException {
