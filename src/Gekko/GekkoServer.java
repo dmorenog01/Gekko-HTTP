@@ -1,6 +1,7 @@
 package Gekko;
 
 import Gekko.Constants.Methods;
+import Gekko.Constants.Values;
 import Gekko.Interfaces.Handler;
 
 import java.io.*;
@@ -9,14 +10,16 @@ import java.util.Hashtable;
 
 public class GekkoServer {
     ServerSocket socket;
+    Hashtable<String, Hashtable<String, Handler>> handlers = new Hashtable<>();
     int port;
     int backlog;
+    int defaultClientTimeout = Values.defaultClientTimeout;
     boolean running = true;
     boolean debug;
-    Hashtable<String, Hashtable<String, Handler>> handlers = new Hashtable<>();
+
 
     public GekkoServer() {
-        this(8080, 10, false);
+        this(Values.defaultPort, Values.defaultBacklog, false);
     }
 
     public GekkoServer(boolean debug) {
@@ -46,7 +49,7 @@ public class GekkoServer {
             // Services Request
             try {
                 Socket client = socket.accept();
-                client.setSoTimeout(2000);
+                client.setSoTimeout(defaultClientTimeout);
                 Thread clientThread = new Thread( new Client(client, handlers));
                 clientThread.start();
             } catch (Exception e) {
@@ -81,7 +84,6 @@ public class GekkoServer {
     public void addGET(String path, Handler handler) {
         addHandler(path, Methods.GET, handler);
     }
-
 
     private void exitWithError(String errorMessage) {
         System.err.println(errorMessage);
